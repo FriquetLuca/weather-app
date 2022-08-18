@@ -11,5 +11,42 @@
         <script defer src="main.js"></script>
     </head>
     <body>
+        <header>
+            <div class="burgermenu">
+                <div class="burgermenu_bar"></div>
+                <div class="burgermenu_bar"></div>
+                <div class="burgermenu_bar"></div>
+            </div>
+            <div class="citysearch">
+                <input list="cities" class="citysearch_search" placeholder="Research for . . .">
+                <datalist id="cities">
+                    <option value="Brussels">
+                    <option value="Paris">
+                    <option value="Berlin">
+                    <option value="London">
+                </datalist>
+                <p class="citysearch_plus">+</p>
+            </div>
+        </header>
+        <main>
+            <section class="menu">
+                <ul class="menu_slidebar"></ul>
+            </section>
+            <section class="main_window">
+                <article class="cityweather">
+                    <h1 class="cityweather_name"></h1>
+                    <div class="cityweather_weather">
+                        <img class="cityweather_weather_icon" src="" alt="">
+                        <p class="cityweather_weather_temp"><span class="cityweather_weather_temp_actualtemp">0</span>°C</p>
+                    </div>
+                    <div class="cityweather_wind">
+                        <img class="cityweather_wind_icon" src="assets/img/wind.png" alt="">
+                        <p class="cityweather_wind_speed"><span class="cityweather_wind_speed_actualspeed">0</span> km/h</p>
+                    </div>
+                </article>
+                <article class="citynextweather">
+                </article>
+            </section>
+        </main>
     </body>
 </html>

@@ -1,0 +1,28 @@
+.citysearch {
+    width: calc(100% - 40px);
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    &_search { // Input
+        padding: 2px;
+        font-size: 1.25em; // 20px
+        border: none;
+        background-color: transparent;
+        &:focus {
+            outline: none;
+            color: rgb(25, 25, 25);
+            caret-color: rgb(25, 25, 25);
+        }
+        &::placeholder {
+            color: rgb(66, 66, 66);
+        }
+    }
+    &_plus { // + sign
+        font-size: 1.25em;
+        text-shadow: 
+        -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, 
+        -1px -1px black, 1px 1px black, -1px 1px black, 1px -1px black;
+        margin: 5px;
+    }
+}

@@ -2,14 +2,179 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  scrollbar-width: thin !important;
 }
 
 body {
-  background-image: url("../img/background.jpg");
-  background-repeat: no-repeat;
-  background-size: auto;
-  background-position: center;
+  position: fixed;
   width: 100vw;
   height: 100vh;
-  position: fixed;
+  background-image: url("../img/background.jpg");
+  background-size: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+header {
+  padding: 2px;
+  height: 35px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.burgermenu {
+  width: 30px;
+  height: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.burgermenu_bar {
+  width: 100%;
+  height: 5px;
+  background-color: rgb(25, 25, 25);
+  border-radius: 7px;
+}
+
+.citysearch {
+  width: calc(100% - 40px);
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+.citysearch_search {
+  padding: 2px;
+  font-size: 1.25em;
+  border: none;
+  background-color: transparent;
+}
+.citysearch_search:focus {
+  outline: none;
+  color: rgb(25, 25, 25);
+  caret-color: rgb(25, 25, 25);
+}
+.citysearch_search::-moz-placeholder {
+  color: rgb(66, 66, 66);
+}
+.citysearch_search:-ms-input-placeholder {
+  color: rgb(66, 66, 66);
+}
+.citysearch_search::placeholder {
+  color: rgb(66, 66, 66);
+}
+.citysearch_plus {
+  font-size: 1.25em;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, -1px -1px black, 1px 1px black, -1px 1px black, 1px -1px black;
+  margin: 5px;
+}
+
+main {
+  height: calc(100vh - 30px);
+  overflow-y: scroll;
+}
+main::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  border-radius: 5px;
+}
+main::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+main::-webkit-scrollbar-thumb {
+  background-color: #513e38;
+  border-radius: 5px;
+}
+main::-webkit-scrollbar-thumb:vertical {
+  background-color: #36312f;
+  border-width: 5px 4px;
+}
+
+.main_window {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: left;
+  align-items: center;
+}
+
+.cityweather {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 1em;
+  margin: 1em;
+  border-radius: 1em;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+.cityweather_name {
+  font-size: 3em;
+}
+.cityweather_weather {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.cityweather_weather_icon {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100px;
+  height: 100px;
+}
+.cityweather_weather_temp {
+  margin-left: 0.2em;
+  font-size: 2.5em;
+}
+.cityweather_wind {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.cityweather_wind_icon {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100px;
+  height: 100px;
+  padding: 15px;
+}
+.cityweather_wind_speed {
+  margin-left: 0.2em;
+  font-size: 2.5em;
+}
+
+.citynextweather {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 1em;
+  margin: 1em;
+  border-radius: 1em;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+.citynextweather_item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+.citynextweather_item_day {
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 2em;
+}
+.citynextweather_item_icon {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 50px;
+  height: 50px;
+}
+.citynextweather_item_temp {
+  margin-left: 0.2em;
+  font-size: 1.25em;
+  text-align: center;
 }

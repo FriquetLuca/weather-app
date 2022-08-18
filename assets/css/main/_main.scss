@@ -1,0 +1,21 @@
+main {
+    height: calc(100vh - 30px);
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+        border-radius: 5px;
+        &-corner {
+            background-color: transparent;
+        }
+        &-thumb {
+            background-color: #513e38;
+            border-radius: 5px;
+        }
+        &-thumb:vertical {
+            background-color: #36312f;
+            border-width: 5px 4px;
+        }
+    }
+}
+@import 'cityweather';
