@@ -76,6 +76,29 @@ class Menu {
     {
         
     }
+    static updateAutocompletion()
+    {
+        TeleportAPI.fetch(TeleportAPI.autoCompletionChoicePath(Menu.searchBar.value), (data) => {
+            const result = data._embedded['city:search-results'];
+            const cities = document.querySelector('#cities');
+            cities.innerHTML = '';
+            let uniqueKeys = [];
+            for(const r of result)
+            {
+                const txt = r.matching_full_name.split(',')[0];
+                if(!uniqueKeys.includes(txt))
+                {
+                    uniqueKeys.push(txt);
+                }
+            }
+            for(let i = 0; i < 10 && i < uniqueKeys.length; i++)
+            {
+                const city = document.createElement('option');
+                city.setAttribute('value', uniqueKeys[i]);
+                cities.appendChild(city);
+            }
+        });
+    }
 }
 class CityWeather {
     static cityAlreadySearched = [];
@@ -98,6 +121,7 @@ class CityWeather {
     static async cityFetch(cityName = 'Brussels')
     {
         await this.defaultFetch(OpenWeatherMapAPI.getTodayFrom(cityName), OpenWeatherMapAPI.get30DaysFrom(cityName));
+        Menu.searchBar.value = '';
     }
     static async defaultFetch(today, nextDays)
     {
@@ -109,7 +133,6 @@ class CityWeather {
             CityWeather.temperatureIcon.setAttribute('alt', data.weather[0].description);
         });
         await OpenWeatherMapAPI.fetch(nextDays, (data) => {
-
             let dateList = data.list.map((date) => {
                     let newD = new Date(date.dt_txt);
                     if(newD.getHours() >= 14 && newD.getHours() <= 16)
@@ -126,12 +149,8 @@ class CityWeather {
             {
                 if(!uniqueDateKeys.includes(d.dt_txt))
                 {
-                    let newD = new Date(d.dt_txt);
-                    if(newD.getHours() > 10 && newD.getHours() < 16)
-                    {
-                        uniqueDateObjects.push(d);
-                        uniqueDateKeys.push(d.dt_txt);
-                    }
+                    uniqueDateObjects.push(d);
+                    uniqueDateKeys.push(d.dt_txt);
                 }
             }
             const day = [
@@ -178,7 +197,17 @@ class CityWeather {
 function start()
 {
     Menu.hideSlidebar();
-    CityWeather.geoLocation();    
+    CityWeather.geoLocation();
+    Menu.searchBar.addEventListener('keyup', (e) => {
+        if(e.key === 'Enter')
+        {
+            CityWeather.cityFetch(Menu.searchBar.value);
+        }
+        else
+        {
+            Menu.updateAutocompletion();
+        }
+    });
     const burgerMenu = document.querySelector('.burgermenu');
     burgerMenu.addEventListener('click', () => {
         Menu.showSlidebar = !Menu.showSlidebar;
@@ -187,11 +216,3 @@ function start()
 }
 
 start();
-/*
-// table for arrays / objects I guess
-console.table()
-// time watcher
-console.time()
-console.timeEnd()
-// trace path
-console.trace()*/
