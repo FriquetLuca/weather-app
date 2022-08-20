@@ -8,18 +8,24 @@ class SYSTEM {
         }
         return typeof data;
     }
+    static async fetchJSON(path, execute, error = (e) => console.error(e))
+    {
+        try {
+            const fetchResult = await fetch(path);
+            const jsonData = await fetchResult.json();
+            execute(jsonData);
+        }
+        catch(e)
+        {
+            error(e);
+        }
+    }
 }
 //SYSTEM.typeof(monElement);
 class TeleportAPI {
     static autoCompletionChoicePath(value)
     {
         return `https://api.teleport.org/api/cities/?search=${value}`;
-    }
-    static async fetch(path, execute)
-    {
-        const fetchResult = await fetch(path);
-        const jsonData = await fetchResult.json();
-        execute(jsonData);
     }
 }
 class OpenWeatherMapAPI {
@@ -44,22 +50,18 @@ class OpenWeatherMapAPI {
     {
         return `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${this.currentKey}`;
     }
-    static async fetch(path, execute)
-    {
-        const fetchResult = await fetch(path);
-        const jsonData = await fetchResult.json();
-        execute(jsonData);
-    }
 }
 class Menu {
-    static showBurger = true;
-    static showSlidebar = false;
+    static show = {
+        Burger: true,
+        Slidebar: false
+    };
     static searchBar = document.querySelector('.citysearch_search');
     static slidebar = document.querySelector('.menu_slidebar');
     static toggleSlidebar()
     {
-        this.showSlidebar = !this.showSlidebar;
-        if(this.showSlidebar)
+        this.show.Slidebar = !this.show.Slidebar;
+        if(this.show.Slidebar)
         {
             this.showSlidebar();
         }
@@ -70,15 +72,15 @@ class Menu {
     }
     static showSlidebar()
     {
-
+        this.slidebar.style.left = '0px';
     }
     static hideSlidebar()
     {
-        
+        this.slidebar.style.left = '-120px';
     }
     static updateAutocompletion()
     {
-        TeleportAPI.fetch(TeleportAPI.autoCompletionChoicePath(Menu.searchBar.value), (data) => {
+        SYSTEM.fetchJSON(TeleportAPI.autoCompletionChoicePath(this.searchBar.value), (data) => {
             const result = data._embedded['city:search-results'];
             const cities = document.querySelector('#cities');
             cities.innerHTML = '';
@@ -121,18 +123,22 @@ class CityWeather {
     static async cityFetch(cityName = 'Brussels')
     {
         await this.defaultFetch(OpenWeatherMapAPI.getTodayFrom(cityName), OpenWeatherMapAPI.get30DaysFrom(cityName));
+        const unsplashLoc = `https://api.unsplash.com/search/photos?query=${cityName}&client_id=Iq674kosw5fpRE2mO9yKv_16zaoD0OSXBx2ALjwWN6s`;
+        await SYSTEM.fetchJSON(unsplashLoc, (data) => {
+            document.body.style.backgroundImage = `url(${data.results[0].urls.full})`;
+        });
         Menu.searchBar.value = '';
     }
     static async defaultFetch(today, nextDays)
     {
-        await OpenWeatherMapAPI.fetch(today, (data) => {
+        await SYSTEM.fetchJSON(today, (data) => {
             CityWeather.cityName.innerHTML = data.name;
             CityWeather.temperature.innerHTML = Math.round(data.main.temp - 273.15);
             CityWeather.wind.innerHTML = Math.round(data.wind.speed * 3.6);
             CityWeather.temperatureIcon.setAttribute('src', OpenWeatherMapAPI.icon(data.weather[0].icon));
             CityWeather.temperatureIcon.setAttribute('alt', data.weather[0].description);
         });
-        await OpenWeatherMapAPI.fetch(nextDays, (data) => {
+        await SYSTEM.fetchJSON(nextDays, (data) => {
             let dateList = data.list.map((date) => {
                     let newD = new Date(date.dt_txt);
                     if(newD.getHours() >= 14 && newD.getHours() <= 16)
@@ -174,7 +180,8 @@ class CityWeather {
         });
         if(!this.cityAlreadySearched.includes(CityWeather.cityName.innerHTML))
         {
-            const newCity = document.createElement('li');
+            const newCity = document.createElement('p');
+            newCity.classList.add('menu_slidebar_item');
             newCity.innerText = CityWeather.cityName.innerHTML;
             newCity.addEventListener('click', () => {
                 Menu.searchBar.value = newCity.innerText;
@@ -210,7 +217,6 @@ function start()
     });
     const burgerMenu = document.querySelector('.burgermenu');
     burgerMenu.addEventListener('click', () => {
-        Menu.showSlidebar = !Menu.showSlidebar;
         Menu.toggleSlidebar();
     });
 }

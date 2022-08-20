@@ -1,21 +1,33 @@
 main {
     height: calc(100vh - 30px);
+}
+.main_window {
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content:left;
+    align-items: center;
     overflow-y: scroll;
+    z-index: 1;
+    scrollbar-color: rgba(255, 255, 255, 0.75) rgba(255, 255, 255, 0);
     &::-webkit-scrollbar {
         width: 5px;
         height: 5px;
         border-radius: 5px;
+        background-color: transparent;
         &-corner {
             background-color: transparent;
         }
         &-thumb {
-            background-color: #513e38;
+            background-color: rgba(255, 255, 255, 0.75);
             border-radius: 5px;
         }
         &-thumb:vertical {
-            background-color: #36312f;
+            background-color: rgba(255, 255, 255, 0.75);
             border-width: 5px 4px;
         }
     }
 }
 @import 'cityweather';
+@import 'citynextweather';

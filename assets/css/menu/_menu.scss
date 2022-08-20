@@ -10,9 +10,29 @@ header {
 @import 'burgermenu';
 @import 'cityadd';
 .menu {
+    width: 80vw;
+    max-width: 120px;
+    height: fit-content;
+    position: relative;
     &_slidebar {
+        position: absolute;
+        width: 80vw;
+        max-width: 120px;
+        max-height: 250px;
+        height: auto;
+        left: -500px;
+        transition: all 0.4s ease-in-out;
+        background-color: rgba(255, 154, 154, 0.4);
+        display: list-item;
+        z-index: 2;
         &_item {
-            
+            text-align: center;
+            background-color: rgba(255, 0, 0, 0);
+            transition: background-color 0.2s linear;
+            overflow-wrap: break-word;
+            &:hover {
+                background-color: rgba(255, 0, 0, 0.15);
+            }
         }
     }
 }
