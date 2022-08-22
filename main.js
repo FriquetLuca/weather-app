@@ -180,6 +180,7 @@ class CityWeather {
         });
         if(!this.cityAlreadySearched.includes(CityWeather.cityName.innerHTML))
         {
+            this.cityAlreadySearched.push(CityWeather.cityName.innerHTML);
             const newCity = document.createElement('p');
             newCity.classList.add('menu_slidebar_item');
             newCity.innerText = CityWeather.cityName.innerHTML;
