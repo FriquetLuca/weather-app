@@ -33,6 +33,9 @@ header {
   flex-direction: column;
   justify-content: space-between;
 }
+.burgermenu:hover .burgermenu_bar {
+  background-color: rgb(51, 51, 51);
+}
 .burgermenu_bar {
   width: 100%;
   height: 5px;
@@ -59,13 +62,13 @@ header {
   caret-color: rgb(25, 25, 25);
 }
 .citysearch_search::-moz-placeholder {
-  color: rgb(66, 66, 66);
+  color: rgb(95, 42, 42);
 }
 .citysearch_search:-ms-input-placeholder {
-  color: rgb(66, 66, 66);
+  color: rgb(95, 42, 42);
 }
 .citysearch_search::placeholder {
-  color: rgb(66, 66, 66);
+  color: rgb(95, 42, 42);
 }
 .citysearch_plus {
   font-size: 1.25em;
@@ -92,14 +95,34 @@ header {
   background-color: rgba(255, 154, 154, 0.4);
   display: list-item;
   z-index: 2;
+  scrollbar-color: rgba(255, 255, 255, 0.75) rgba(255, 255, 255, 0);
+}
+.menu_slidebar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  border-radius: 5px;
+  background-color: transparent;
+}
+.menu_slidebar::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+.menu_slidebar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 5px;
+}
+.menu_slidebar::-webkit-scrollbar-thumb:vertical {
+  background-color: rgba(255, 255, 255, 0.75);
+  border-width: 5px 4px;
 }
 .menu_slidebar_item {
   text-align: center;
   background-color: rgba(255, 0, 0, 0);
-  transition: background-color 0.2s linear;
+  transition: background-color 0.15s linear;
+  transition: color 0.15s linear;
   overflow-wrap: break-word;
 }
 .menu_slidebar_item:hover {
+  color: #fff;
   background-color: rgba(255, 0, 0, 0.15);
 }
 
