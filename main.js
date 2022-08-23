@@ -1,56 +1,9 @@
+import { SYSTEM } from './modules/system.js';
+import { OpenWeatherMapAPI } from './modules/openWeatherAPI.js';
+import { TeleportAPI } from './modules/teleportAPI.js';
+
 document.cookie = "openweather=api; SameSite=None; Secure";
-class SYSTEM {
-    static typeof(data)
-    {
-        if(Array.isArray(data))
-        {
-            return 'array';
-        }
-        return typeof data;
-    }
-    static async fetchJSON(path, execute, error = (e) => console.error(e))
-    {
-        try {
-            const fetchResult = await fetch(path);
-            const jsonData = await fetchResult.json();
-            execute(jsonData);
-        }
-        catch(e)
-        {
-            error(e);
-        }
-    }
-}
-//SYSTEM.typeof(monElement);
-class TeleportAPI {
-    static autoCompletionChoicePath(value)
-    {
-        return `https://api.teleport.org/api/cities/?search=${value}`;
-    }
-}
-class OpenWeatherMapAPI {
-    static currentKey = 'f885e592c15a6704ad60be0fe52b2556';
-    static icon(id)
-    {
-        return `http://openweathermap.org/img/wn/${id}@2x.png`;
-    }
-    static getTodayFrom(city)
-    {
-        return `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${this.currentKey}`;
-    }
-    static get30DaysFrom(city)
-    {
-        return `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${this.currentKey}`;
-    }
-    static geographicalTodayPath(lat, long)
-    {
-        return `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${this.currentKey}`;
-    }
-    static geographical30DaysPath(lat, long)
-    {
-        return `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${this.currentKey}`;
-    }
-}
+
 class Menu {
     static show = {
         Burger: true,
@@ -202,6 +155,7 @@ class CityWeather {
         }
     }
 }
+
 function start()
 {
     Menu.hideSlidebar();
